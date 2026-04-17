@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f0ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      width: 320px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: darkblue;
+    }
+
+    .result {
+      background-color: #f0f0f0;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>A Basic Calculator</h1>
+
+    <label for="num1">Enter Your First Number:</label>
+    <input type="text" id="num1">
+
+    <label for="num2">Enter Your Second Number:</label>
+    <input type="text" id="num2">
+
+    <div class="error" id="errorMessage"></div>
+
+    <p>Choose a basic arithmetic operation:</p>
+
+    <div class="buttons">
+      <button onclick="calculate('add')">Add</button>
+      <button onclick="calculate('subtract')">Subtract</button>
+      <button onclick="calculate('multiply')">Multiply</button>
+      <button onclick="calculate('divide')">Divide</button>
+    </div>
+
+    <div class="result" id="result">Here is the result:</div>
+  </div>
+
+  <script>
+    function calculate(operation) {
+      let num1 = document.getElementById("num1").value;
+      let num2 = document.getElementById("num2").value;
+      let errorMessage = document.getElementById("errorMessage");
+      let resultBox = document.getElementById("result");
+
+      errorMessage.textContent = "";
+
+      if (num1 === "" || num2 === "" || isNaN(num1) || isNaN(num2)) {
+        errorMessage.textContent = "Please enter valid numbers.";
+        resultBox.textContent = "Result:";
+        return;
+      }
+
+      num1 = parseFloat(num1);
+      num2 = parseFloat(num2);
+
+      let result;
+
+      if (operation === "add") {
+        result = num1 + num2;
+      } else if (operation === "subtract") {
+        result = num1 - num2;
+      } else if (operation === "multiply") {
+        result = num1 * num2;
+      } else if (operation === "divide") {
+        if (num2 === 0) {
+          errorMessage.textContent = "Cannot divide by zero.";
+          resultBox.textContent = "Result:";
+          return;
+        }
+        result = num1 / num2;
+      }
+
+      resultBox.textContent = "Result: " + result;
+    }
+  </script>
+</body>
+</html>
